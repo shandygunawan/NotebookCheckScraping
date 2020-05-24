@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import json
 
 # Global Variables
-URL_GPU = "https://www.notebookcheck.net/Mobile-Graphics-Cards-Benchmark-List.844.0.html?type=&sort=&showClassDescription=1&deskornote=2&perfrating=1&or=0&showBars=1&3dmark13_ice_gpu=1&3dmark13_cloud=1&3dmark13_cloud_gpu=1&3dmark13_fire=1&3dmark13_fire_gpu=1&3dmark13_time_spy=1&3dmark13_time_spy_gpu=1&3dmark11=1&3dmark11_gpu=1&vantage3dmark=1&vantage3dmarkgpu=1&3dmark06=1&3dmark01=1&glbenchmark=1&gfxbench30=1&gfxbench31=1&basemarkx11_med=1&basemarkx11_high=1&heaven3_dx=1&valley_dx=1&cb15_ogl=1&cinebench10_ogl=1&computemark_result=1&luxmark_sala=1&gpu_fullname=1&architecture=1&pixelshaders=1&vertexshaders=1&corespeed=1&shaderspeed=1&boostspeed=1&memoryspeed=1&memorybus=1&memorytype=1&directx=1&opengl=1&technology=1"
+URL_GPU = "https://www.notebookcheck.net/Mobile-Graphics-Cards-Benchmark-List.844.0.html?type=&sort=&showClassDescription=1&deskornote=2&perfrating=1&or=0&showBars=1&3dmark13_ice_gpu=1&3dmark13_cloud=1&3dmark13_cloud_gpu=1&3dmark13_fire=1&3dmark13_fire_gpu=1&3dmark13_time_spy=1&3dmark13_time_spy_gpu=1&3dmark11=1&3dmark11_gpu=1&vantage3dmark=1&vantage3dmarkgpu=1&3dmark06=1&3dmark01=1&glbenchmark=1&gfxbench30=1&gfxbench31=1&basemarkx11_med=1&basemarkx11_high=1&heaven3_dx=1&valley_dx=1&cb15_ogl=1&cinebench10_ogl=1&computemark_result=1&luxmark_sala=1&gpu_fullname=1&codename=1&architecture=1&pixelshaders=1&vertexshaders=1&corespeed=1&shaderspeed=1&boostspeed=1&memoryspeed=1&memorybus=1&memorytype=1&directx=1&opengl=1&technology=1&daysold=1"
 
 
 # Functions
@@ -52,6 +52,7 @@ def scrape_gpu():
             "directx": convert_emptystring(specs[7]),
             "opengl": convert_emptystring(specs[8]),
             "process_nm": convert_emptystring(specs[9]),
+            "days_old": convert_emptystring(specs[10]),
             "bench_3dmark_icestorm": get_bench_score(bench_3dmark[0]),
             "bench_3dmark_cloudgate": get_bench_score(bench_3dmark[1]),
             "bench_3dmark_cloudgate_gpu": get_bench_score(bench_3dmark[2]),
