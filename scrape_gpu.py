@@ -23,7 +23,7 @@ def scrape_gpu():
     raw_html = simple_get(URL_GPU)
     html = BeautifulSoup(raw_html, 'html.parser')
     table = html.find_all('table')[0]
-    gpus_html = table.find_all("tr", {"class": ["desk_odd", "desk_even", "odd", "even"]})
+    gpus_html = table.find_all("tr", {"class": ["desk_odd", "desk_even", "odd", "even", "smartphone_odd", "smartphone_even"]})
     gpus_list = []
     for gpu in gpus_html:
         try:
@@ -81,6 +81,7 @@ def scrape_gpu():
 
 if __name__ == "__main__":
     gpus = scrape_gpu()
+    print("Fetched " + str(len(gpus)) + " GPUs' informations")
 
     with open('gpus.json', 'w') as outfile:
         json.dump(gpus, outfile)
