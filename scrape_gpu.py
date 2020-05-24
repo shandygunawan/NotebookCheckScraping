@@ -12,7 +12,11 @@ def get_bench_score(html):
     try:
         return html.find('div').find('span', class_='bl_ch_value').find('span').get_text()
     except AttributeError as e:
-        return ""
+        return None
+
+
+def convert_emptystring(s):
+    return None if s == "" else s
 
 
 def scrape_gpu():
@@ -37,17 +41,17 @@ def scrape_gpu():
         gpus_list.append({
             "pos": gpu.find('td', class_='specs poslabel').find('label').find('span').get_text(),
             "model": model,
-            "architecture": gpu.find('td', class_='specs sorttable_codename').get_text(),
-            "pixel_shaders": specs[0],
-            "core_speed": specs[1],
-            "shader_speed": specs[2],
-            "boost": specs[3],
-            "memory_speed": specs[4],
-            "memory_bus": specs[5],
-            "memory_type": specs[6],
-            "directx": specs[7],
-            "opengl": specs[8],
-            "process_nm": specs[9],
+            "architecture": convert_emptystring(gpu.find('td', class_='specs sorttable_codename').get_text()),
+            "pixel_shaders": convert_emptystring(specs[0]),
+            "core_speed": convert_emptystring(specs[1]),
+            "shader_speed": convert_emptystring(specs[2]),
+            "boost": convert_emptystring(specs[3]),
+            "memory_speed": convert_emptystring(specs[4]),
+            "memory_bus": convert_emptystring(specs[5]),
+            "memory_type": convert_emptystring(specs[6]),
+            "directx": convert_emptystring(specs[7]),
+            "opengl": convert_emptystring(specs[8]),
+            "process_nm": convert_emptystring(specs[9]),
             "bench_3dmark_icestorm": get_bench_score(bench_3dmark[0]),
             "bench_3dmark_cloudgate": get_bench_score(bench_3dmark[1]),
             "bench_3dmark_cloudgate_gpu": get_bench_score(bench_3dmark[2]),
