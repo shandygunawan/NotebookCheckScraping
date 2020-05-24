@@ -20,7 +20,16 @@ def convert_emptystring(s):
 
 
 def scrape_gpu():
+    print("Requesting...")
     raw_html = simple_get(URL_GPU)
+
+    if raw_html is None:
+        print("NotebookCheck sometimes return an invalid HTML. Please try again!")
+        return
+    else:
+        print("Request success!")
+
+    print("Scraping...")
     html = BeautifulSoup(raw_html, 'html.parser')
     table = html.find_all('table')[0]
     gpus_html = table.find_all("tr", {"class": ["desk_odd", "desk_even", "odd", "even", "smartphone_odd", "smartphone_even"]})
@@ -31,6 +40,7 @@ def scrape_gpu():
         except AttributeError as e:
             model = gpu.find('td', class_='specs fullname').get_text()
 
+        specs_sorttable = [el.text for el in gpu.find_all('td', class_='specs sorttable_codename')]
         specs = [el.text for el in gpu.select("td[class=specs]")]
 
         # Benchmarks
@@ -41,7 +51,8 @@ def scrape_gpu():
         gpus_list.append({
             "pos": gpu.find('td', class_='specs poslabel').find('label').find('span').get_text(),
             "model": model,
-            "architecture": convert_emptystring(gpu.find('td', class_='specs sorttable_codename').get_text()),
+            "codename": convert_emptystring(specs_sorttable[0]),
+            "architecture": convert_emptystring(specs_sorttable[1]),
             "pixel_shaders": convert_emptystring(specs[0]),
             "core_speed": convert_emptystring(specs[1]),
             "shader_speed": convert_emptystring(specs[2]),
@@ -82,7 +93,9 @@ def scrape_gpu():
 
 if __name__ == "__main__":
     gpus = scrape_gpu()
-    print("Fetched " + str(len(gpus)) + " GPUs' informations")
+    print("Scrapped " + str(len(gpus)) + " GPUs' data")
 
+    print("Dumping result to json file...")
     with open('gpus.json', 'w') as outfile:
         json.dump(gpus, outfile)
+    print("Done")
