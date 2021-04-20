@@ -66,7 +66,6 @@ def scrape_gpu():
             "3DMark11 P": get_bench_score(bench_3dmark11[0]),
             "3DMark11 P GPU": get_bench_score(bench_3dmark11[1]),
             "3DMark Vantage P": get_bench_score(bench_3dmarkvantage[0]),
-            "3DMark Vant. P GPU": get_bench_score(bench_3dmarkvantage[1]),
             "3DMark06": get_bench_score(gpu.find('td', class_='value bv_4')),
             "3DMark01": get_bench_score(gpu.find('td', class_='value bv_1')),
             "GFXBench": get_bench_score(gpu.find('td', class_='value bv_216')),
